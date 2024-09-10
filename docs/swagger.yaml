@@ -1,0 +1,129 @@
+definitions:
+  controllers.response:
+    properties:
+      data:
+        additionalProperties: true
+        type: object
+      message:
+        type: string
+      status:
+        type: integer
+    type: object
+  models.CurrencyType:
+    enum:
+    - USD
+    - GBP
+    - EUR
+    - NGN
+    type: string
+    x-enum-varnames:
+    - USD
+    - GBP
+    - EUR
+    - NGN
+  models.Invoice:
+    properties:
+      amount:
+        type: number
+      billing_currency:
+        $ref: '#/definitions/models.CurrencyType'
+      created_at:
+        type: string
+      description:
+        type: string
+      discount_percentage:
+        description: Items              []Items           `json:"items" gorm:"default:[]"`
+        type: number
+      due_date:
+        type: string
+      invoice_id:
+        type: string
+      invoice_number:
+        type: string
+      note:
+        type: string
+      status:
+        $ref: '#/definitions/models.Status'
+      updated_at:
+        type: string
+      user_id:
+        type: string
+    type: object
+  models.Status:
+    enum:
+    - DRAFT
+    - OVERDUE
+    - PAID
+    - PENDING_PAYMENT
+    - CANCELLED
+    type: string
+    x-enum-varnames:
+    - DRAFT
+    - OVERDUE
+    - PAID
+    - PENDING_PAYMENT
+    - CANCELLED
+info:
+  contact: {}
+paths:
+  /invoice:
+    get:
+      consumes:
+      - application/json
+      description: Retrieve all invoice.
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Successfully retrieved the invoices
+          schema:
+            $ref: '#/definitions/models.Invoice'
+        "400":
+          description: Invalid ID format
+          schema:
+            $ref: '#/definitions/controllers.response'
+        "404":
+          description: Invoice not found
+          schema:
+            $ref: '#/definitions/controllers.response'
+        "500":
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/controllers.response'
+      summary: Get all invoice
+      tags:
+      - Invoice
+  /invoice/{id}:
+    get:
+      consumes:
+      - application/json
+      description: Retrieve an invoice using its unique ID.
+      parameters:
+      - description: Invoice ID
+        in: path
+        name: id
+        required: true
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: Successfully retrieved the invoice
+          schema:
+            $ref: '#/definitions/models.Invoice'
+        "400":
+          description: Invalid ID format
+          schema:
+            $ref: '#/definitions/controllers.response'
+        "404":
+          description: Invoice not found
+          schema:
+            $ref: '#/definitions/controllers.response'
+        "500":
+          description: Internal server error
+          schema:
+            $ref: '#/definitions/controllers.response'
+      summary: Get invoice by ID
+      tags:
+      - Invoice
+swagger: "2.0"

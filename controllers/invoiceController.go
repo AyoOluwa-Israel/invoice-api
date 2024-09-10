@@ -9,8 +9,26 @@ import (
 	"github.com/AyoOluwa-Israel/invoice-api/utils"
 	"github.com/gofiber/fiber/v2"
 	"github.com/google/uuid"
+
+
+
+
 )
 
+
+// ShowAccount godoc
+//
+// @Summary Get invoice by ID
+// @Description Retrieve an invoice using its unique ID.
+// @Tags Invoice
+// @Accept json
+// @Produce json
+// @Param id path string true "Invoice ID"
+// @Success 200 {object} models.Invoice "Successfully retrieved the invoice"
+// @Failure 400 {object} response "Invalid ID format"
+// @Failure 404 {object} response "Invoice not found"
+// @Failure 500 {object} response "Internal server error"
+// @Router /invoice/{id} [get]
 func GetInvoiceByID(c *fiber.Ctx) error {
 	userId, err := utils.GetUserIDFromHeader(c)
 
@@ -50,6 +68,20 @@ func GetInvoiceByID(c *fiber.Ctx) error {
 	})
 }
 
+
+
+// ShowAccount godoc
+//
+// @Summary Get all invoice
+// @Description Retrieve all invoice.
+// @Tags Invoice
+// @Accept json
+// @Produce json
+// @Success 200 {object} models.Invoice "Successfully retrieved the invoices"
+// @Failure 400 {object} response "Invalid ID format"
+// @Failure 404 {object} response "Invoice not found"
+// @Failure 500 {object} response "Internal server error"
+// @Router /invoice [get]
 func GetAllInvoice(c *fiber.Ctx) error {
 	userId, err := utils.GetUserIDFromHeader(c)
 
@@ -118,6 +150,23 @@ func CreateInvoice(c *fiber.Ctx) error {
 	return c.Status(fiber.StatusCreated).JSON(res)
 
 }
+
+
+
+
+// @Summary Update an invoice
+// @Description Updates the details of an existing invoice for a specific user.
+// @Tags invoices
+// @Accept json
+// @Produce json
+// @Param invoice_id path string true "Invoice ID"
+// @Param X-User-Id header string true "User ID"
+// @Param body body UpdateInvoiceData true "Update Invoice Data"
+// @Success 200 {object} response "Invoice updated successfully"
+// @Failure 400 {object} response "Invalid request body"
+// @Failure 404 {object} response "Invoice not found"
+// @Failure 500 {object} response "Database error or server issue"
+// @Router /invoices/{invoice_id} [put]
 
 func UpdateInvoice(c *fiber.Ctx) error {
 	userId, err := utils.GetUserIDFromHeader(c)

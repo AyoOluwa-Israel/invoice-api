@@ -1,6 +1,7 @@
 package main
 
 import (
+
 	"log"
 
 	"github.com/AyoOluwa-Israel/invoice-api/config"
@@ -9,6 +10,8 @@ import (
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/cors"
 	"github.com/gofiber/fiber/v2/middleware/logger"
+	"github.com/gofiber/swagger"
+	_ "github.com/AyoOluwa-Israel/invoice-api/docs"
 )
 
 func init() {
@@ -33,20 +36,23 @@ func main() {
 		CaseSensitive: true,
 	})
 
+
+
 	app.Use(logger.New())
 
 	app.Use(cors.New(
 		cors.Config{
-			// AllowHeaders: "Origin,Content-Type,Accept,Content-Length,Accept-Language,Accept-Encoding,Connection,Access-Control-Allow-Origin",
 			AllowOrigins: "*",
-			// AllowCredentials: true,
-			// AllowMethods: "GET,POST,HEAD,PUT,DELETE,PATCH,OPTIONS",
 		}))
+
+		app.Get("/swagger/*", swagger.HandlerDefault) 
 
 	router := app.Group("/v1/api")
 	routes.UserRoutes(router)
 	routes.PaymentInformationRoutes(router)
 	routes.InvoiceRoutes(router)
+
+	// Swagger UI route
 
 	app.Get("/", func(c *fiber.Ctx) error {
 		return c.Status(fiber.StatusOK).JSON(fiber.Map{
