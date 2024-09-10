@@ -1,15 +1,11 @@
 package controllers
 
 import (
-	"fmt"
-
-
 	"github.com/AyoOluwa-Israel/invoice-api/db"
 	"github.com/AyoOluwa-Israel/invoice-api/models"
 	"github.com/AyoOluwa-Israel/invoice-api/utils"
 	"github.com/gofiber/fiber/v2"
 	"github.com/google/uuid"
-	"gorm.io/gorm"
 )
 
 func CreatePaymentInfo(c *fiber.Ctx) error {
@@ -22,19 +18,6 @@ func CreatePaymentInfo(c *fiber.Ctx) error {
 			Message: err.Error(),
 		})
 	}
-
-	// Check if the UserID exists in the users table
-	var user models.User
-	if err := db.Database.Db.First(&user, "id = ?", userId).Error; err != nil {
-		if err == gorm.ErrRecordNotFound {
-			return c.Status(fiber.StatusNotFound).SendString("User not found")
-		}
-		// Log any other error
-		fmt.Println("Error finding user:", err)
-		return c.Status(fiber.StatusInternalServerError).SendString("Database error")
-	}
-
-
 
 	var paymentInfo models.PaymentInformation
 
@@ -68,7 +51,6 @@ func GetAllPaymentInfo(c *fiber.Ctx) error {
 
 	userId, err := utils.GetUserIDFromHeader(c)
 
-
 	if err != nil {
 		return c.Status(fiber.StatusBadRequest).JSON(response{
 			Status:  fiber.StatusBadRequest,
@@ -77,6 +59,10 @@ func GetAllPaymentInfo(c *fiber.Ctx) error {
 	}
 
 	var paymentInfo []models.PaymentInformation
+
+	
+
+
 	if err := db.Database.Db.Where("user_id = ?", userId).Find(&paymentInfo).Error; err != nil {
 		return c.Status(fiber.StatusInternalServerError).JSON(response{
 			Status:  fiber.StatusInternalServerError,

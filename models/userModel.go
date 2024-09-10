@@ -26,4 +26,5 @@ type User struct {
 	CreatedAt          time.Time            `json:"created_at"`
 	UpdatedAt          time.Time            `json:"updated_at"`
 	PaymentInformation []PaymentInformation `json:"payment_info" gorm:"foreignKey:UserID;default:[]"`
+	Invoice []Invoice `json:"invoice" gorm:"foreignKey:UserID;default:[]"`
 }

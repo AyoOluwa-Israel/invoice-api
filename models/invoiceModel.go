@@ -48,18 +48,19 @@ const (
 )
 
 type Invoice struct {
-	InvoiceID          uuid.UUID         `json:"invoice_id" gorm:"type:uuid;primaryKey;not null"`
-	InvoiceNumber      int64             `json:"invoice_number"`
-	Description        string            `json:"description"`
-	Status             Status            `json:"status"`
-	CreatedAt          time.Time         `json:"created_at"`
-	UpdatedAt          time.Time         `json:"updated_at"`
-	Amount             float64           `json:"amount"`
-	DueDate            time.Time         `json:"due_date"`
-	BillingCurrency    CurrencyType      `json:"billing_currency"`
+	UserID          uuid.UUID    `json:"user_id" gorm:"not null"`
+	InvoiceID       uuid.UUID    `json:"invoice_id" gorm:"type:uuid;primaryKey;not null"`
+	InvoiceNumber   string        `json:"invoice_number"`
+	Description     string       `json:"description"`
+	Status          Status       `json:"status" gorm:"default:'DRAFT'"`
+	CreatedAt       time.Time    `json:"created_at"`
+	UpdatedAt       time.Time    `json:"updated_at"`
+	Amount          float64      `json:"amount"`
+	DueDate         time.Time    `json:"due_date"`
+	BillingCurrency CurrencyType `json:"billing_currency" gorm:"default:'USD'"`
 	// Items              []Items           `json:"items" gorm:"default:[]"`
-	DiscountPercentage float64           `json:"discount_percentage"`
-	Note               string            `json:"note"`
+	DiscountPercentage float64 `json:"discount_percentage"`
+	Note               string  `json:"note"`
 	// Reminders          []Reminder        `json:"reminders" gorm:"default:[]"`
 	// InvoiceActivity    []InvoiceActivity `json:"invoice_activity" gorm:"default:[]"`
 }
