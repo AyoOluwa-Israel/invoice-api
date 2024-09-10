@@ -1,6 +1,9 @@
 # [Project Name]
-
 This is me trying test out stuffs
+
+
+# [Project Description]
+This project is built with Go fiber framework with Postgres as the database
 
 ## Project Structure
 
