@@ -36,7 +36,7 @@ func GetUser(c *fiber.Ctx) error {
 
 	// 2. Retrieve the user from the database
 	var user models.User
-	if err := db.Database.Db.First(&user, "id = ?", userID).Error; err != nil {
+	if err := db.Database.Db.Preload("PaymentInformation").First(&user, "id = ?", userID).Error; err != nil {
 
 		return c.Status(fiber.StatusNotFound).JSON(response{
 			Status:  fiber.StatusNotFound,

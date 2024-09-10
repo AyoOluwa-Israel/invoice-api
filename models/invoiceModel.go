@@ -57,9 +57,9 @@ type Invoice struct {
 	Amount             float64           `json:"amount"`
 	DueDate            time.Time         `json:"due_date"`
 	BillingCurrency    CurrencyType      `json:"billing_currency"`
-	Items              []Items           `json:"items" gorm:"default:[]"`
+	// Items              []Items           `json:"items" gorm:"default:[]"`
 	DiscountPercentage float64           `json:"discount_percentage"`
 	Note               string            `json:"note"`
-	Reminders          []Reminder        `json:"reminders" gorm:"default:[]"`
-	InvoiceActivity    []InvoiceActivity `json:"invoice_activity" gorm:"default:[]"`
+	// Reminders          []Reminder        `json:"reminders" gorm:"default:[]"`
+	// InvoiceActivity    []InvoiceActivity `json:"invoice_activity" gorm:"default:[]"`
 }

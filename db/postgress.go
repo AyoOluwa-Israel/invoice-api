@@ -33,7 +33,7 @@ func NewConnection(config *config.Config) {
 	db.Logger = logger.Default.LogMode(logger.Info)
 	fmt.Println("🚀 Connected Successfully to the Database")
 
-	db.AutoMigrate(&models.User{}, &models.Invoice{})
+	db.AutoMigrate(&models.User{}, &models.Invoice{}, &models.PaymentInformation{})
 
 	Database = DbInstance{
 		Db: db,
