@@ -15,7 +15,7 @@ const docTemplate = `{
     "host": "{{.Host}}",
     "basePath": "{{.BasePath}}",
     "paths": {
-        "/invoice": {
+        "/v1/api/invoice/": {
             "get": {
                 "description": "Retrieve all invoice.",
                 "consumes": [
@@ -28,6 +28,15 @@ const docTemplate = `{
                     "Invoice"
                 ],
                 "summary": "Get all invoice",
+                "parameters": [
+                    {
+                        "type": "string",
+                        "description": "User ID",
+                        "name": "X-User-Id",
+                        "in": "header",
+                        "required": true
+                    }
+                ],
                 "responses": {
                     "200": {
                         "description": "Successfully retrieved the invoices",
@@ -56,7 +65,7 @@ const docTemplate = `{
                 }
             }
         },
-        "/invoice/{id}": {
+        "/v1/api/invoice/{id}": {
             "get": {
                 "description": "Retrieve an invoice using its unique ID.",
                 "consumes": [
@@ -70,6 +79,13 @@ const docTemplate = `{
                 ],
                 "summary": "Get invoice by ID",
                 "parameters": [
+                    {
+                        "type": "string",
+                        "description": "User ID",
+                        "name": "X-User-Id",
+                        "in": "header",
+                        "required": true
+                    },
                     {
                         "type": "string",
                         "description": "Invoice ID",

@@ -23,12 +23,13 @@ import (
 // @Tags Invoice
 // @Accept json
 // @Produce json
+//@Param X-User-Id header string true "User ID" 
 // @Param id path string true "Invoice ID"
 // @Success 200 {object} models.Invoice "Successfully retrieved the invoice"
 // @Failure 400 {object} response "Invalid ID format"
 // @Failure 404 {object} response "Invoice not found"
 // @Failure 500 {object} response "Internal server error"
-// @Router /invoice/{id} [get]
+// @Router /v1/api/invoice/{id} [get]
 func GetInvoiceByID(c *fiber.Ctx) error {
 	userId, err := utils.GetUserIDFromHeader(c)
 
@@ -77,11 +78,12 @@ func GetInvoiceByID(c *fiber.Ctx) error {
 // @Tags Invoice
 // @Accept json
 // @Produce json
+//@Param X-User-Id header string true "User ID" 
 // @Success 200 {object} models.Invoice "Successfully retrieved the invoices"
 // @Failure 400 {object} response "Invalid ID format"
 // @Failure 404 {object} response "Invoice not found"
 // @Failure 500 {object} response "Internal server error"
-// @Router /invoice [get]
+// @Router /v1/api/invoice/ [get]
 func GetAllInvoice(c *fiber.Ctx) error {
 	userId, err := utils.GetUserIDFromHeader(c)
 

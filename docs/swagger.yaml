@@ -66,11 +66,17 @@ definitions:
 info:
   contact: {}
 paths:
-  /invoice:
+  /v1/api/invoice/:
     get:
       consumes:
       - application/json
       description: Retrieve all invoice.
+      parameters:
+      - description: User ID
+        in: header
+        name: X-User-Id
+        required: true
+        type: string
       produces:
       - application/json
       responses:
@@ -93,12 +99,17 @@ paths:
       summary: Get all invoice
       tags:
       - Invoice
-  /invoice/{id}:
+  /v1/api/invoice/{id}:
     get:
       consumes:
       - application/json
       description: Retrieve an invoice using its unique ID.
       parameters:
+      - description: User ID
+        in: header
+        name: X-User-Id
+        required: true
+        type: string
       - description: Invoice ID
         in: path
         name: id
