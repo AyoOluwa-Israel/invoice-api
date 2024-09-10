@@ -22,6 +22,19 @@ type RegisterPayload struct {
 	User models.User `json:"user"`
 }
 
+
+// GetUser godoc
+//
+// @Summary Get a User by ID
+// @Description Retrieve a user using its unique ID.
+// @Tags User
+// @Accept json
+// @Produce json
+// @Param user_id path string true "User ID"
+// @Success 201 {object} models.User "Successfully retrieved the user"
+// @Failure 400 {object} response "Invalid request data"
+// @Failure 500 {object} response "Internal server error"
+// @Router /v1/api/user/{user_id} [get]
 func GetUser(c *fiber.Ctx) error {
 	// 1. Get User ID from the request (assuming it's in the URL parameters)
 	userID := c.Params("user_id")
@@ -56,6 +69,18 @@ func GetUser(c *fiber.Ctx) error {
 	})
 }
 
+
+// GetAllUsers godoc
+//
+// @Summary Get all Users
+// @Description Retrieve a user using its unique ID.
+// @Tags User
+// @Accept json
+// @Produce json
+// @Success 201 {object} []models.User "Successfully retrieved all users"
+// @Failure 400 {object} response "Invalid request data"
+// @Failure 500 {object} response "Internal server error"
+// @Router /v1/api/users [get]
 func GetAllUsers(c *fiber.Ctx) error {
 	// 1. Retrieve all users from the database
 	var users []models.User
@@ -81,6 +106,19 @@ func GetAllUsers(c *fiber.Ctx) error {
 	})
 }
 
+
+// RegisterUser godoc
+//
+// @Summary Create a User
+// @Description Create a new user by providing the necessary details.
+// @Tags User
+// @Accept json
+// @Produce json
+// @Param user body models.UserPayload true "User data"
+// @Success 201 {object} models.User "Successfully created the invoice"
+// @Failure 400 {object} response "Invalid request data"
+// @Failure 500 {object} response "Internal server error"
+// @Router /v1/api/user [post]
 func RegisterUser(c *fiber.Ctx) error {
 
 	var user models.User

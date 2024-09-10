@@ -9,12 +9,7 @@ import (
 	"github.com/AyoOluwa-Israel/invoice-api/utils"
 	"github.com/gofiber/fiber/v2"
 	"github.com/google/uuid"
-
-
-
-
 )
-
 
 // ShowAccount godoc
 //
@@ -23,13 +18,13 @@ import (
 // @Tags Invoice
 // @Accept json
 // @Produce json
-//@Param X-User-Id header string true "User ID" 
+// @Param X-User-Id header string true "User ID"
 // @Param id path string true "Invoice ID"
 // @Success 200 {object} models.Invoice "Successfully retrieved the invoice"
 // @Failure 400 {object} response "Invalid ID format"
 // @Failure 404 {object} response "Invoice not found"
 // @Failure 500 {object} response "Internal server error"
-// @Router /v1/api/invoice/{id} [get]
+// @Router /v1/api/invoice/{invoice_id} [get]
 func GetInvoiceByID(c *fiber.Ctx) error {
 	userId, err := utils.GetUserIDFromHeader(c)
 
@@ -69,8 +64,6 @@ func GetInvoiceByID(c *fiber.Ctx) error {
 	})
 }
 
-
-
 // ShowAccount godoc
 //
 // @Summary Get all invoice
@@ -78,12 +71,12 @@ func GetInvoiceByID(c *fiber.Ctx) error {
 // @Tags Invoice
 // @Accept json
 // @Produce json
-//@Param X-User-Id header string true "User ID" 
+// @Param X-User-Id header string true "User ID"
 // @Success 200 {object} models.Invoice "Successfully retrieved the invoices"
 // @Failure 400 {object} response "Invalid ID format"
 // @Failure 404 {object} response "Invoice not found"
 // @Failure 500 {object} response "Internal server error"
-// @Router /v1/api/invoice/ [get]
+// @Router /v1/api/invoice [get]
 func GetAllInvoice(c *fiber.Ctx) error {
 	userId, err := utils.GetUserIDFromHeader(c)
 
@@ -114,6 +107,19 @@ func GetAllInvoice(c *fiber.Ctx) error {
 	})
 }
 
+// CreateInvoice godoc
+//
+// @Summary Create an invoice
+// @Description Create a new invoice by providing the necessary details.
+// @Tags Invoice
+// @Accept json
+// @Produce json
+// @Param X-User-Id header string true "User ID"
+// @Param invoice body models.Invoice true "Invoice data"
+// @Success 201 {object} models.Invoice "Successfully created the invoice"
+// @Failure 400 {object} response "Invalid request data"
+// @Failure 500 {object} response "Internal server error"
+// @Router /v1/api/invoice [post]
 func CreateInvoice(c *fiber.Ctx) error {
 	userId, err := utils.GetUserIDFromHeader(c)
 
@@ -154,22 +160,21 @@ func CreateInvoice(c *fiber.Ctx) error {
 }
 
 
-
-
+// UpdateInvoice godoc
+//
 // @Summary Update an invoice
 // @Description Updates the details of an existing invoice for a specific user.
-// @Tags invoices
+// @Tags Invoice
 // @Accept json
 // @Produce json
 // @Param invoice_id path string true "Invoice ID"
 // @Param X-User-Id header string true "User ID"
-// @Param body body UpdateInvoiceData true "Update Invoice Data"
+// @Param invoice body interfaces.IUpdateInvoice true "Updated invoice data"
 // @Success 200 {object} response "Invoice updated successfully"
 // @Failure 400 {object} response "Invalid request body"
 // @Failure 404 {object} response "Invoice not found"
 // @Failure 500 {object} response "Database error or server issue"
-// @Router /invoices/{invoice_id} [put]
-
+// @Router  /v1/api/invoice/{invoice_id} [put]
 func UpdateInvoice(c *fiber.Ctx) error {
 	userId, err := utils.GetUserIDFromHeader(c)
 

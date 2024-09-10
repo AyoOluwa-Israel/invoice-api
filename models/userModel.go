@@ -28,3 +28,11 @@ type User struct {
 	PaymentInformation []PaymentInformation `json:"payment_info" gorm:"foreignKey:UserID;default:[]"`
 	Invoice []Invoice `json:"invoice" gorm:"foreignKey:UserID;default:[]"`
 }
+
+
+type UserPayload struct {
+	FirstName          string               `json:"first_name"`
+	LastName           string               `json:"last_name"`
+	Phone              string               `json:"phone"`
+	Email              string               `json:"email"`
+}
