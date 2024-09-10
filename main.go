@@ -45,6 +45,7 @@ func main() {
 
 	router := app.Group("/v1/api")
 	routes.UserRoutes(router)
+
 	routes.PaymentInformationRoutes(router)
 
 	app.Get("/", func(c *fiber.Ctx) error {

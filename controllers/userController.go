@@ -1,8 +1,6 @@
 package controllers
 
 import (
-	"log"
-
 	"github.com/AyoOluwa-Israel/invoice-api/db"
 	"github.com/AyoOluwa-Israel/invoice-api/models"
 	"github.com/AyoOluwa-Israel/invoice-api/utils"
@@ -63,7 +61,7 @@ func GetAllUsers(c *fiber.Ctx) error {
 	var users []models.User
 	if err := db.Database.Db.Find(&users).Error; err != nil {
 		// Log the actual error for debugging
-		log.Println("Error retrieving users:", err)
+
 		return c.Status(fiber.StatusInternalServerError).JSON(response{
 			Status:  fiber.StatusInternalServerError,
 			Message: "Failed to retrieve users",

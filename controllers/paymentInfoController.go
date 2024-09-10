@@ -3,8 +3,10 @@ package controllers
 import (
 	"fmt"
 
+
 	"github.com/AyoOluwa-Israel/invoice-api/db"
 	"github.com/AyoOluwa-Israel/invoice-api/models"
+	"github.com/AyoOluwa-Israel/invoice-api/utils"
 	"github.com/gofiber/fiber/v2"
 	"github.com/google/uuid"
 	"gorm.io/gorm"
@@ -12,16 +14,14 @@ import (
 
 func CreatePaymentInfo(c *fiber.Ctx) error {
 
-	id := c.Get("X-User-Id")
+	userId, err := utils.GetUserIDFromHeader(c)
 
-	if id == "" {
+	if err != nil {
 		return c.Status(fiber.StatusBadRequest).JSON(response{
 			Status:  fiber.StatusBadRequest,
-			Message: "User id  is required",
+			Message: err.Error(),
 		})
 	}
-
-	userId, err := uuid.Parse(id)
 
 	// Check if the UserID exists in the users table
 	var user models.User
@@ -34,12 +34,7 @@ func CreatePaymentInfo(c *fiber.Ctx) error {
 		return c.Status(fiber.StatusInternalServerError).SendString("Database error")
 	}
 
-	if err != nil {
-		return c.Status(fiber.StatusBadRequest).JSON(response{
-			Status:  fiber.StatusBadRequest,
-			Message: "Invalid UserID format",
-		})
-	}
+
 
 	var paymentInfo models.PaymentInformation
 
@@ -66,5 +61,37 @@ func CreatePaymentInfo(c *fiber.Ctx) error {
 	}
 
 	return c.Status(fiber.StatusCreated).JSON(res)
+
+}
+
+func GetAllPaymentInfo(c *fiber.Ctx) error {
+
+	userId, err := utils.GetUserIDFromHeader(c)
+
+
+	if err != nil {
+		return c.Status(fiber.StatusBadRequest).JSON(response{
+			Status:  fiber.StatusBadRequest,
+			Message: err.Error(),
+		})
+	}
+
+	var paymentInfo []models.PaymentInformation
+	if err := db.Database.Db.Where("user_id = ?", userId).Find(&paymentInfo).Error; err != nil {
+		return c.Status(fiber.StatusInternalServerError).JSON(response{
+			Status:  fiber.StatusInternalServerError,
+			Message: "Failed to retrieve payment info",
+		})
+	}
+
+	data := map[string]interface{}{
+		"payment_info": paymentInfo,
+	}
+
+	return c.Status(fiber.StatusOK).JSON(response{
+		Status:  fiber.StatusOK,
+		Message: "Payment info retrieved successfully",
+		Data:    data,
+	})
 
 }
