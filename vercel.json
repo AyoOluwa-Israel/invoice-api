@@ -1,5 +1,5 @@
 {
     "routes": [
-        {"src": "/main.go", "dest":"/cmd/main"}
+        {"src": "main.go", "dest":"."}
     ]
 }
