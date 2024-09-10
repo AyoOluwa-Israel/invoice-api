@@ -11,5 +11,6 @@ func InvoiceRoutes(app fiber.Router) {
 	app.Get("/invoice", controllers.GetAllInvoice)
 
 	app.Get("/invoice/:invoice_id", controllers.GetInvoiceByID)
+	app.Put("/invoice/:invoice_id", controllers.UpdateInvoice)
 
 }
