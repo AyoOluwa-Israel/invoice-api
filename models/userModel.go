@@ -23,5 +23,5 @@ type User struct {
 	Verified           bool               `json:"is_verified" `
 	CreatedAt          time.Time          `json:"created_at"`
 	UpdatedAt          time.Time          `json:"updated_at"`
-	PaymentInformation PaymentInformation `json:"payment_info"`
+	PaymentInformation PaymentInformation `json:"payment_info" gorm:"embedded"`
 }

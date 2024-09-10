@@ -26,12 +26,10 @@ func GetInvoiceByID(c *fiber.Ctx) error {
 		})
 	}
 
-	// 3. Prepare the response data
 	data := map[string]interface{}{
 		"invoice": invoice,
 	}
 
-	// 4. Return the user data in the response
 	return c.Status(fiber.StatusOK).JSON(response{
 		Status:  fiber.StatusOK,
 		Message: "Invoice retrieved successfully",
