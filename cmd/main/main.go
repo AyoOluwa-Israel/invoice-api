@@ -1,17 +1,16 @@
 package main
 
 import (
-
 	"log"
 
 	"github.com/AyoOluwa-Israel/invoice-api/config"
 	"github.com/AyoOluwa-Israel/invoice-api/db"
+	_ "github.com/AyoOluwa-Israel/invoice-api/docs"
 	"github.com/AyoOluwa-Israel/invoice-api/routes"
 	"github.com/gofiber/fiber/v2"
 	"github.com/gofiber/fiber/v2/middleware/cors"
 	"github.com/gofiber/fiber/v2/middleware/logger"
 	"github.com/gofiber/swagger"
-	_ "github.com/AyoOluwa-Israel/invoice-api/docs"
 )
 
 func init() {
@@ -36,8 +35,6 @@ func main() {
 		CaseSensitive: true,
 	})
 
-
-
 	app.Use(logger.New())
 
 	app.Use(cors.New(
@@ -45,7 +42,7 @@ func main() {
 			AllowOrigins: "*",
 		}))
 
-		app.Get("/swagger/*", swagger.HandlerDefault) 
+	app.Get("/swagger/*", swagger.HandlerDefault)
 
 	router := app.Group("/v1/api")
 	routes.UserRoutes(router)
