@@ -24,7 +24,19 @@ func NewConnection(config *config.Config) {
 		config.DBHost, config.DBPort, config.DBUserName, config.DBUserPassword, config.DBName,
 	)
 
-	db, err := gorm.Open(postgres.Open(dsn), &gorm.Config{})
+	devDsn := fmt.Sprintf(
+		"host=%s port=%s user=%s password=%s dbname=%s sslmode=disable",
+		config.DevDBHost, config.DevDBPort, config.DevDBUserName, config.DevDBUserPassword, config.DevDBName,
+	)
+
+	var url string
+	if config.AppEnv == "development" {
+		url = devDsn
+	} else {
+		url = dsn
+	}
+
+	db, err := gorm.Open(postgres.Open(url), &gorm.Config{})
 	if err != nil {
 		log.Fatal("Failed to connect to the database! \n", err)
 		os.Exit(2)
