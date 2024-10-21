@@ -46,12 +46,14 @@ func main() {
 
 	router := app.Group("/v1/api")
 	routes.UserRoutes(router)
+	routes.WebsiteRoutes(router)
 	routes.PaymentInformationRoutes(router)
 	routes.InvoiceRoutes(router)
 
 	// Swagger UI route
 
 	app.Get("/", func(c *fiber.Ctx) error {
+
 		return c.Status(fiber.StatusOK).JSON(fiber.Map{
 			"message": "Welcome to my Invoice API",
 			"status":  fiber.StatusOK,
