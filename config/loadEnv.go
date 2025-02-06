@@ -16,6 +16,11 @@ type Config struct {
 	DevDBName         string `mapstructure:"DEV_POSTGRES_DB"`
 	DevDBPort         string `mapstructure:"DEV_POSTGRES_PORT"`
 	AppEnv            string `mapstructure:"APP_ENV"`
+
+	CloudinaryCloudName string `mapstructure:"CLOUDINARY_CLOUD_NAME"`
+	CloudinaryApiKey string `mapstructure:"CLOUDINARY_API_KEY"`
+	CloudinarySecretKey string `mapstructure:"CLOUDINARY_SECRET_KEY"`
+
 }
 
 func LoadConfig(path string) (config Config, err error) {

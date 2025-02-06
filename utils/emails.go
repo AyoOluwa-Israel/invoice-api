@@ -28,7 +28,7 @@ func SendEmail(message models.MessageStruct) error {
 	// Set up the email parameters
 	m := gomail.NewMessage()
 
-	m.SetHeader("From", "AyoOluwa Israel <hello@israelayooluwa.com>")
+	m.SetHeader("From", "AyoOluwa Israel <support@israelayooluwa.com>")
 	m.SetHeader("To", message.Email)
 
 	processedTemplate, err := template.ParseFiles("./templates/contact_us.html")

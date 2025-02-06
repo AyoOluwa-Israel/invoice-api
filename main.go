@@ -49,6 +49,7 @@ func main() {
 	routes.WebsiteRoutes(router)
 	routes.PaymentInformationRoutes(router)
 	routes.InvoiceRoutes(router)
+	routes.UploadRoutes(router, config)
 
 	// Swagger UI route
 
